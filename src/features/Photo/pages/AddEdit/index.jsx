@@ -1,6 +1,6 @@
+import Banner from 'components/Banner';
+import PhotoForm from 'features/components/PhotoForm';
 import React from 'react';
-import Banner from '../../../../components/Banner';
-import PhotoForm from '../../../components/PhotoForm';
 import './index.scss';
 
 AddEditPage.propTypes = {};
