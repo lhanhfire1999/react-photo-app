@@ -6,10 +6,14 @@ import { FastField, Form, Formik } from 'formik';
 import React from 'react';
 import { Button, FormGroup } from 'reactstrap';
 import * as yup from 'yup';
+import PropTypes from 'prop-types';
 
 PhotoForm.propTypes = {
-  
+  onSubmit: PropTypes.func,
 };
+PhotoForm.defaultProps = {
+  onSubmit: null,
+}
 
 function PhotoForm(props) {
   const initialValues = {
@@ -34,7 +38,7 @@ function PhotoForm(props) {
     <Formik
       initialValues={initialValues}
       validationSchema={validateSchema}
-      onSubmit={values => console.log('Submit: ', values)}
+      onSubmit={props.onSubmit}
     >
       {(formikProps) => {
         // Do something here..........
