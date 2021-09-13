@@ -5,13 +5,32 @@ import './index.scss';
 
 PhotoCard.propTypes = {
   photo: PropTypes.object,
-};
-PhotoCard.propTypes = {
-  photo: {},
+  onRemoveClick: PropTypes.func,
+  onEditClick: PropTypes.func,
 };
 
+PhotoCard.defaultProps = {
+  photo: {},
+  onRemoveClick: null,
+  onEditClick: null,
+};
+
+
 function PhotoCard(props) {
-  const {photo} = props;
+  const {photo, onRemoveClick, onEditClick} = props;
+
+  const handleEditClick = () => {
+    if(onEditClick){
+      onEditClick();
+    }
+  }
+  const handleRemoveClick = () => {
+    if(onRemoveClick){
+      onRemoveClick(photo.id)
+    }
+  }
+
+
   return (
     <div className='photo'>
       <img
@@ -22,12 +41,20 @@ function PhotoCard(props) {
         <h5 className="photo__title">{photo.title}</h5>
         <div className="photo__actions">
           <div>
-            <Button size='sm' outline color="light">
+            <Button 
+              size='sm'
+              outline color="light"
+              onClick = {handleEditClick}
+            >
               Edit
             </Button>
           </div>
           <div>
-            <Button size='sm' outline color="danger">
+            <Button
+              size='sm'
+              outline color="danger"
+              onClick={handleRemoveClick}
+            >
               Remove
             </Button>
           </div>
