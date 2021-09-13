@@ -10,17 +10,18 @@ import * as yup from 'yup';
 
 PhotoForm.propTypes = {
   onSubmit: PropTypes.func,
+  initialValues: PropTypes.object,
+  addMode: PropTypes.bool,
+
 };
 PhotoForm.defaultProps = {
   onSubmit: null,
+  initialValues: {},
+  addMode: false,
 }
 
 function PhotoForm(props) {
-  const initialValues = {
-    title: '',
-    categoryId: null,
-    photo: '',
-  };
+  const {initialValues, addMode} = props;
 
   const validateSchema = yup.object().shape({
     title: yup.string().required('This field is not emty'),
@@ -74,11 +75,11 @@ function PhotoForm(props) {
             />
             <FormGroup>
               <Button 
-                color='primary'
+                color={addMode ? 'primary' : 'success'}
                 type="submit"
               >
                 {isSubmitting && <Spinner size="sm" children=''/>}
-                Add to album
+                {addMode ? 'Add to album' : 'Update your photo'}
               </Button>
             </FormGroup>
           </Form>

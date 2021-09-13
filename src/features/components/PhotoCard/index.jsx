@@ -21,7 +21,7 @@ function PhotoCard(props) {
 
   const handleEditClick = () => {
     if(onEditClick){
-      onEditClick();
+      onEditClick(photo);
     }
   }
   const handleRemoveClick = () => {
