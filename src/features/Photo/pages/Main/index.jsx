@@ -1,5 +1,6 @@
 import Banner from 'components/Banner';
 import Images from 'constants/images';
+import PhotoList from 'features/components/PhotoList';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -20,6 +21,9 @@ function MainPage(props) {
       />
       <Container className='text-center'>
         <Link to='/photo/add'>Add new photo</Link>
+        <PhotoList 
+          photoList={photos}
+        />
       </Container>
     </div>
   );
