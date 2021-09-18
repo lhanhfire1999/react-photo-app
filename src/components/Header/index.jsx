@@ -20,6 +20,16 @@ function Header() {
               Photo Todo
             </NavLink>
           </Col>
+          <Col xs='auto'>
+            <NavLink
+              exact
+              className='header__title header__link'
+              to='/sign-in'
+              activeClassName='header__link--active'
+            >
+              Sign in
+            </NavLink>
+          </Col>
         </Row>
       </Container>
     </header>
