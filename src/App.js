@@ -48,12 +48,15 @@ function App() {
       console.log('Logged in with userName: ', user.displayName);
       
       const token = await user.getIdToken();
+
       console.log('Logged in user token: ', token);
+      
+      const setjson = JSON.stringify(user.providerData);
+      localStorage.setItem('firebaseui::rememberedAccounts', setjson);
     });
     return () =>{
-      console.log('Component will unmount');
       unSubscribe()
-    }; // Make sure we un-register Firebase observers when the component unmounts.
+    }; 
   }, []);
 
   // console.log({productList});
