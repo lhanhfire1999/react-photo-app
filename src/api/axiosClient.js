@@ -28,8 +28,6 @@ const getFirebaseToken = () => {
       clearTimeout(waitTime);
     })
   })
-
-
 }
 
 const axiosClient = axios.create({

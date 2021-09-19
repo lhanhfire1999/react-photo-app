@@ -1,7 +1,10 @@
+import { unwrapResult } from "@reduxjs/toolkit";
 import productApi from "api/productApi";
+import { getMe } from "app/userSlice";
 import SignIn from "features/Auth/pages/SignIn";
 import firebase from 'firebase';
 import React, { Suspense, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Button } from "reactstrap";
 import './App.scss';
@@ -19,7 +22,7 @@ firebase.initializeApp(config);
 
 function App() {
   const [productList, setProductList] = useState([]);
-  const [increase, setIncrease] = useState(0);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProductList = async () => {
@@ -29,7 +32,6 @@ function App() {
           _limit: 10,
         };
         const response = await productApi.getAll(params);
-        // console.log(response);
         setProductList(response.data);
       } catch (error) {
         console.log('Failed to fetch product list: ', error);
@@ -40,26 +42,25 @@ function App() {
   
   useEffect(() => {
     const unSubscribe = firebase.auth().onAuthStateChanged(async (user) => {
-      console.log('Component did mount');
       if(!user){
         console.log('User not logged in')
         return;
       }
-      console.log('Logged in with userName: ', user.displayName);
       
-      const token = await user.getIdToken();
-
-      console.log('Logged in user token: ', token);
-      
-      const setjson = JSON.stringify(user.providerData);
-      localStorage.setItem('firebaseui::rememberedAccounts', setjson);
+      try{
+        // Take result now and handle getMe.error.
+        const actionResult = await dispatch(getMe());
+        const currentUser = unwrapResult(actionResult);
+        console.log('Logged in users: ', currentUser, actionResult);
+      }catch(err){
+        console.log('Error: ', err.message);
+      }
     });
     return () =>{
-      unSubscribe()
+      unSubscribe();
     }; 
   }, []);
 
-  // console.log({productList});
   const handleOnClick = () => {
     const fetchProductList = async () => {
       try {
@@ -74,7 +75,6 @@ function App() {
       }
     }
     fetchProductList();
-
   }
   return (
     <div className="photo-app">
