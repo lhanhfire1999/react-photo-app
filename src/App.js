@@ -81,7 +81,7 @@ function App() {
       <Suspense fallback={<div>Loading......</div>}>
         <BrowserRouter>
           <Header/>
-          <Button onClick={handleOnClick}>Fetch data</Button>
+          {/* <Button onClick={handleOnClick}>Fetch data</Button> */}
           <Switch>
             <Redirect exact from='/' to='photo'/>
             <Route path='/photo' component={Photo}/>

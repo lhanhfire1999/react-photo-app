@@ -6,6 +6,7 @@
 
   & > img {
     width: 100%;
+    transition: all 0.45s ease 0s;
   }
 
   &__title {
@@ -29,6 +30,8 @@
     color: rgba(255, 255, 255, 0.8);
     background-color: rgba(0, 0, 0, 0.8);
     opacity: 0;
+
+    transition: all 0.25s ease 0s;
   }
 
   &__actions{
@@ -49,6 +52,9 @@
 // When hover
   &:hover{
     cursor: pointer;
+  }
+  &:hover > img {
+    transform: scale(1.35);
   }
 
   &:hover &__overlay,
